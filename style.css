@@ -3,15 +3,12 @@
     padding: 10px;
 }
 
-.plot-container>div {
-    box-shadow: 0 0 4px #cccccc;
-    padding: 10px;
-    
-   
-}
+span.css-1fv8s86.e16nr0p34{
+    padding: 0.2em 0.4em; 
+    margin: 0px; 
+    border-radius: 0.25rem; 
+    background: rgb(26, 28, 36); 
+    color: rgb(9, 171, 59); 
+    font-size: .75em;
 
-div[data-testid="stExpander"] div[role="button"] p
-{
-    font-size: 1.3rem;
-    color:rgb(235, 238, 238);
 }

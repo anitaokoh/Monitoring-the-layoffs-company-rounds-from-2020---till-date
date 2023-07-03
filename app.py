@@ -26,6 +26,8 @@ def home():
         "data_for_map_one": data_transformed_for_viz(data, 'Country')
     }
 
+    
+
     # Section 1: Metrics
     c1, c2 = st.columns(2, gap='large')
     with c1:
@@ -46,11 +48,13 @@ def home():
         st.write(value_counts_metrics(data, "Date"), "is the date with the most fire so far and then the second highest date is",
                  value_counts_metrics(data, "Date", number=1), "and the third highest date is on",
                  value_counts_metrics(data, "Date", number=2))
+        
     with tab2:
         st.markdown(""" ### Company Origin of Fire rounds """)
         choropleth_map(data_transformed_dict["data_for_map_one"], 'Country', 'count',
                        color_scale='Reds', locationmode='country names')
-        st.write("Most of the companies who had fire rounds were in", value_counts_metrics(data, "Country"))
+        
+        st.write(f"Most of the companies who had fire rounds were in <span class='css-1fv8s86 e16nr0p34'>{value_counts_metrics(data, 'Country')}</span>", unsafe_allow_html=True)
 
     st.markdown("""---""")
 
@@ -59,14 +63,14 @@ def home():
     with c3:
         st.markdown(""" #### Fire rounds by Industry Over time""")
         bar_charts(data_transformed_dict["data_for_bar_one"], "Industry", "count")
-        st.write(value_counts_metrics(data, "Industry"), "Industry was affected the most compared to other Industry and, \
-                 ",  value_counts_metrics(data, "Industry", number=-1), "is the least.")
+        st.write(f'The <span class="css-1fv8s86 e16nr0p34">{value_counts_metrics(data, "Industry")}</span> Industry was affected the most compared to other Industry and, \
+                 <span class="css-1fv8s86 e16nr0p34">{value_counts_metrics(data, "Industry", number=-1)}</span> is the least.', unsafe_allow_html=True)
     with c4:
         st.markdown("""#### Total Unique Company Fire rounds for each year""")
         bar_charts(data_transformed_dict["data_for_bar_two"], "year", "Company", direction='horizontal', height=347)
-        st.write("At at", status_date, "," ,value_counts_metrics(data, "year", 'Company'), \
-                 "has the most unique company fire rounds. \n Note that", value_counts_metrics(data, "year"), \
-                "also has the most fire rounds so far" )
+        st.write(f'As at <span class="css-1fv8s86 e16nr0p34">{status_date}</span>, <span class="css-1fv8s86 e16nr0p34">{value_counts_metrics(data, "year", "Company")}</span>  \
+                 has the most unique company fire rounds. \n Note that <span class="css-1fv8s86 e16nr0p34">{value_counts_metrics(data, "year")}</span>  \
+                also has the most fire rounds so far', unsafe_allow_html=True)
 
     st.markdown("""---""")
 
