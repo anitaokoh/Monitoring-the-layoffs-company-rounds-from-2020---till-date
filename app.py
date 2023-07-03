@@ -87,7 +87,7 @@ if __name__ == '__main__':
     st.sidebar.header('About Dashboard')
     st.sidebar.write("""
     This Dashboard was created the monitor the layoffs data which was sourced from [here](https://www.kaggle.com/datasets/theakhilb/layoffs-data-2022).
-    Dashboard repo can be found [here](https://github.com/your/repository).
+    Dashboard repo can be found [here](https://github.com/anitaokoh/Monitoring-the-layoffs-company-rounds-from-2020---till-date).
     """)
                  
     st.sidebar.markdown('''
