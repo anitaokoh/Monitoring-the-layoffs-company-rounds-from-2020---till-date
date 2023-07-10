@@ -14,6 +14,7 @@ def transform_raw_data(data_file, column):
     """
     data = pd.read_csv(data_file, parse_dates=[column])
     data['year'] = data[column].dt.year
+    data['date_added'] = data[column].dt.date
     data['year'] = data['year'].astype(str)
     data['FirstDayOfMonth'] = data[column] - pd.offsets.MonthBegin(1)
     return data

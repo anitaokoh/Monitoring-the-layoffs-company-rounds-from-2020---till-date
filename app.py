@@ -1,6 +1,6 @@
 import streamlit as st
 from src.visualizations_functions import line_chart, bar_charts, metric_chart, heat_map, choropleth_map
-from src.metrics_computations import value_counts_metrics, other_single_metrics, update_date
+from src.metrics_computations import value_counts_metrics, other_single_metrics, update_date, last_date
 from src.data_transformation import transform_raw_data, data_transformed_for_viz
 
 
@@ -18,6 +18,7 @@ def home():
     data = transform_raw_data(data_file, 'Date')
     percentage_coverage, year_2023, count_of_fire = other_single_metrics(data, 'year', '2023', '2022', 'Company')
     status_date = update_date()
+    last_date_added = last_date(data, 'date_added')
 
     data_transformed_dict = {
         "data_for_bar_one": data_transformed_for_viz(data, 'Industry'),
@@ -32,11 +33,11 @@ def home():
     c1, c2 = st.columns(2, gap='large')
     with c1:
         metric_chart("Total fire rounds in 2023", f"{year_2023:,.0f}",
-                     f"{percentage_coverage}% of 2022 fire rounds as at {status_date}", arrow_direction="inverse")
+                     f"{percentage_coverage}% of 2022 fire rounds as at {last_date_added}", arrow_direction="inverse")
 
     with c2:
         metric_chart("Company with the most fire rounds between 2020-2023", value_counts_metrics(data, 'Company'),
-                     f"{count_of_fire} rounds as at {status_date}", arrow_direction="inverse")
+                     f"{count_of_fire} rounds as at {last_date_added}", arrow_direction="inverse")
 
     st.markdown("""---""")
 
@@ -45,9 +46,9 @@ def home():
     with tab1:
         st.markdown(""" ### Fire rounds Over time""")
         line_chart(data_transformed_dict["data_for_line"], 'Date', 'count')
-        st.write(value_counts_metrics(data, "Date"), "is the date with the most fire so far and then the second highest date is",
-                 value_counts_metrics(data, "Date", number=1), "and the third highest date is on",
-                 value_counts_metrics(data, "Date", number=2))
+        st.write(value_counts_metrics(data, "date_added"), "is the date with the most fire so far and then the second highest date is",
+                 value_counts_metrics(data, "date_added", number=1), "and the third highest date is on",
+                 value_counts_metrics(data, "date_added", number=2))
         
     with tab2:
         st.markdown(""" ### Company Origin of Fire rounds """)
@@ -68,7 +69,7 @@ def home():
     with c4:
         st.markdown("""#### Total Unique Company Fire rounds for each year""")
         bar_charts(data_transformed_dict["data_for_bar_two"], "year", "Company", direction='horizontal', height=347)
-        st.write(f'As at <span class="css-1fv8s86 e16nr0p34">{status_date}</span>, <span class="css-1fv8s86 e16nr0p34">{value_counts_metrics(data, "year", "Company")}</span>  \
+        st.write(f'As at <span class="css-1fv8s86 e16nr0p34">{last_date_added}</span>, <span class="css-1fv8s86 e16nr0p34">{value_counts_metrics(data, "year", "Company")}</span>  \
                  has the most unique company fire rounds. \n Note that <span class="css-1fv8s86 e16nr0p34">{value_counts_metrics(data, "year")}</span>  \
                 also has the most fire rounds so far', unsafe_allow_html=True)
 

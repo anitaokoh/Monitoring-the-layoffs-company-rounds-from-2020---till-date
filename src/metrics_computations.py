@@ -12,6 +12,9 @@ def update_date():
     today = datetime.today().date()
     return today - timedelta(days=today.weekday())
 
+def last_date(data, column_name):
+    return data[column_name].max()
+
 
 def value_counts_metrics(data, column_one, column_two=None, number=0):
     """
